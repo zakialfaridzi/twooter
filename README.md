@@ -1,4 +1,4 @@
-# twootter
+# Twotter
 ```
 My amateur vesion of Twitter build using Vue3
 ```
