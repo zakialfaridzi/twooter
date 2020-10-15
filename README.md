@@ -1,4 +1,7 @@
-# twootter
+# Twootter
+```
+My amateur vesion of Twitter build using Vue3
+```
 
 ## Project setup
 ```
