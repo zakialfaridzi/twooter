@@ -1,6 +1,6 @@
 <template>
   <form
-    class="user-profile__create-twoot"
+    class="create-twoot-panel"
     @submit.prevent="createNewTwoot"
     :class="{ '--exceeded': newTwootCharCount > 180 }"
   >
@@ -10,52 +10,63 @@
       id="newTwoot"
       cols="30"
       rows="10"
-      v-model="newTwootContent"
+      v-model="state.newTwootContent"
     />
 
-    <div class="user-profile__create-twoot-type">
-      <label for="newTwootType">Type:</label>
-      <select name="newTwootType" id="newTwootType" v-model="selectedTwootType">
-        <option
-          :value="option.value"
-          v-for="(option, index) in twootTypes"
-          :key="index"
+    <div class="create-twoot-panel__submit">
+      <div class="create-twoot-type">
+        <label for="newTwootType">Type:</label>
+        <select
+          name="newTwootType"
+          id="newTwootType"
+          v-model="state.selectedTwootType"
         >
-          {{ option.name }}
-        </option>
-      </select>
-    </div>
+          <option
+            :value="option.value"
+            v-for="(option, index) in state.twootTypes"
+            :key="index"
+          >
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
 
-    <button>Twoot!</button>
+      <button>Twoot!</button>
+    </div>
   </form>
 </template>
 
 <script>
+import { computed, reactive } from "vue";
 export default {
   name: "TwootsPanel",
-  data() {
-    return {
+  setup(props, context) {
+    const state = reactive({
       twootTypes: [
         { value: "draft", name: "Draft" },
         { value: "instant", name: "Instant Twoot" },
       ],
       newTwootContent: "",
       selectedTwootType: "instant",
-    };
-  },
-  computed: {
-    newTwootCharCount() {
-      return this.newTwootContent.length;
-    },
-  },
-  methods: {
-    createNewTwoot() {
-      if (this.newTwootContent && this.selectedTwootType != "draft") {
-        this.$emit("add-twoot", this.newTwootContent);
-        this.newTwootContent = "";
+    });
+
+    const newTwootCharCount = computed(() => {
+      return state.newTwootContent.length;
+    });
+
+    function createNewTwoot() {
+      if (state.newTwootContent && state.selectedTwootType != "draft") {
+        context.emit("add-twoot", state.newTwootContent);
+        state.newTwootContent = "";
         console.log("tw ad");
       }
-    },
+    }
+
+    return {
+      state,
+      newTwootCharCount,
+      createNewTwoot,
+    };
   },
 };
 </script>

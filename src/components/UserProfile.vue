@@ -1,26 +1,30 @@
 <template>
   <div class="user-profile">
-    <div class="user-profile__user-panel">
-      <h1 class="user-profile__username">@{{ user.userName }}</h1>
-      <div class="user-profile__admin-badge" v-if="user.isAdmin">Chadmin</div>
-      <div
-        class="user-profile__admin-badge"
-        v-else
-        style="background: #4fba8a; color: #334b5d"
-      >
-        Virgin
-      </div>
-      <div class="user-profile__follower-count">
-        <strong>Followers</strong>: {{ followers }}
+    <div class="user-profile__sidebar">
+      <div class="user-profile__user-panel">
+        <h1 class="user-profile__username">@{{ state.user.userName }}</h1>
+        <div class="user-profile__admin-badge" v-if="state.user.isAdmin">
+          Chadmin
+        </div>
+        <div
+          class="user-profile__admin-badge"
+          v-else
+          style="background: #4fba8a; color: #334b5d"
+        >
+          Virgin
+        </div>
+        <div class="user-profile__follower-count">
+          <strong>Followers</strong>: {{ state.followers }}
+        </div>
       </div>
       <TwootsPanelVue @add-twoot="addTwoot" />
     </div>
 
     <div class="user-profile__twoots-wrapper">
       <TwootsVue
-        v-for="twoot in user.twoots"
+        v-for="twoot in state.user.twoots"
         :key="twoot.id"
-        :username="user.userName"
+        :username="state.user.userName"
         :twoot="twoot"
         @favorite="toggleFavorite"
       />
@@ -29,14 +33,15 @@
 </template>
 
 <script>
+import { reactive } from "vue";
 import TwootsVue from "./Twoots.vue";
 import TwootsPanelVue from "./TwootsPanel.vue";
 
 export default {
   name: "UserProfile",
   components: { TwootsVue, TwootsPanelVue },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       followers: 0,
       following: 1,
       isLoading: false,
@@ -54,23 +59,28 @@ export default {
           { id: 4, content: "#MUNTOT1-6" },
         ],
       },
-    };
-  },
-  methods: {
-    addTwoot(twoot) {
-      this.user.twoots.unshift({
-        id: this.user.twoots.length + 1,
+    });
+
+    function addTwoot(twoot) {
+      state.user.twoots.unshift({
+        id: state.user.twoots.length + 1,
         content: twoot,
       });
-    },
+    }
+
+    return {
+      state,
+      addTwoot,
+    };
   },
-  watch: {
-    followers(newFollowerCount, oldFollowerCount) {
-      if (oldFollowerCount < newFollowerCount) {
-        console.log(`${this.user.userName} have a new follower`);
-      }
-    },
-  },
+
+  // watch: {
+  //   followers(newFollowerCount, oldFollowerCount) {
+  //     if (oldFollowerCount < newFollowerCount) {
+  //       console.log(`${this.user.userName} have a new follower`);
+  //     }
+  //   },
+  // },
 };
 </script>
 

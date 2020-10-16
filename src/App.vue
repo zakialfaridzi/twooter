@@ -3,7 +3,7 @@
     <nav>
       <div class="navigation__logo">Twooter</div>
       <div class="navigation__user">
-        {{ user.userName }}
+        {{ state.user.userName }}
       </div>
     </nav>
     <UserProfileVue />
@@ -11,16 +11,21 @@
 </template>
 
 <script>
+import { reactive } from "vue";
 import UserProfileVue from "./components/UserProfile.vue";
 
 export default {
   name: "App",
   components: { UserProfileVue },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       user: {
         userName: "@zalfaridzii",
       },
+    });
+
+    return {
+      state,
     };
   },
 };
