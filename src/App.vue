@@ -2,11 +2,9 @@
   <div id="app">
     <nav>
       <router-link to="/">
-        <div class="navigation__logo">Twooter</div>
+        <div class="navigation__logo">twooter</div>
       </router-link>
-      <div class="navigation__user" v-if="user">
-        {{ user.username }}
-      </div>
+      <div class="navigation__user" v-if="user">@{{ user.username }}</div>
     </nav>
     <router-view />
   </div>
@@ -30,25 +28,29 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Inter, sans-serif;
+  font-family: DM Sans, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: whitesmoke;
   min-height: 100vh;
-  background-color: #f3f5fa;
+  background-color: #16202a;
 
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 5%;
-    background-color: deeppink;
-    color: white;
+    background-color: #1da1f2;
+    color: black;
+
     .navigation__logo {
       font-weight: bold;
       font-size: 24px;
+      z-index: 1;
+      position: relative;
     }
+
     .navigation__user {
       font-weight: bold;
     }

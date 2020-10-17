@@ -78,8 +78,10 @@ export default {
   display: flex;
   flex-direction: column;
   textarea {
-    border: 1px solid #dfe3e8;
+    background-color: #16202a;
+    border: 3px solid #1da1f2;
     border-radius: 5px;
+    color: white;
   }
   .create-twoot-panel__submit {
     display: flex;
@@ -92,7 +94,7 @@ export default {
       margin: auto 0;
       border-radius: 5px;
       border: none;
-      background-color: deeppink;
+      background-color: #1da1f2;
       color: white;
       font-weight: bold;
     }

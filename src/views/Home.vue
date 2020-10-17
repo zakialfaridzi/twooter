@@ -7,7 +7,7 @@
         :to="{ name: 'UserProfile', params: { userId: user.id } }"
         :key="user.id"
       >
-        {{ user.username }}
+        @{{ user.username }}
       </router-link>
     </div>
   </div>
