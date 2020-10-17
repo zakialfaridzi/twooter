@@ -1,32 +1,29 @@
 <template>
   <div id="app">
     <nav>
-      <div class="navigation__logo">Twooter</div>
-      <div class="navigation__user">
-        {{ state.user.userName }}
+      <router-link to="/">
+        <div class="navigation__logo">Twooter</div>
+      </router-link>
+      <div class="navigation__user" v-if="user">
+        {{ user.username }}
       </div>
     </nav>
-    <UserProfileVue />
+    <router-view />
   </div>
 </template>
 
 <script>
-import { reactive } from "vue";
-import UserProfileVue from "./components/UserProfile.vue";
-
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "App",
-  components: { UserProfileVue },
   setup() {
-    const state = reactive({
-      user: {
-        userName: "@zalfaridzii",
-      },
+    const store = useStore();
+    const user = computed(() => {
+      return store.state.User.user;
     });
 
-    return {
-      state,
-    };
+    return { user };
   },
 };
 </script>

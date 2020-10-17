@@ -2,7 +2,7 @@
   <div class="user-profile">
     <div class="user-profile__sidebar">
       <div class="user-profile__user-panel">
-        <h1 class="user-profile__username">@{{ state.user.userName }}</h1>
+        <h1 class="user-profile__username">@{{ state.user.username }}</h1>
         <div class="user-profile__admin-badge" v-if="state.user.isAdmin">
           Chadmin
         </div>
@@ -11,7 +11,7 @@
           v-else
           style="background: #4fba8a; color: #334b5d"
         >
-          Virgin
+          Peasant
         </div>
         <div class="user-profile__follower-count">
           <strong>Followers</strong>: {{ state.followers }}
@@ -24,7 +24,7 @@
       <TwootsVue
         v-for="twoot in state.user.twoots"
         :key="twoot.id"
-        :username="state.user.userName"
+        :username="state.user.username"
         :twoot="twoot"
         @favorite="toggleFavorite"
       />
@@ -33,32 +33,25 @@
 </template>
 
 <script>
-import { reactive } from "vue";
-import TwootsVue from "./Twoots.vue";
-import TwootsPanelVue from "./TwootsPanel.vue";
+import { reactive, computed } from "vue";
+import TwootsVue from "../components/Twoots.vue";
+import TwootsPanelVue from "../components/TwootsPanel.vue";
+import { useRoute } from "vue-router";
+import { users } from "../assets/users";
 
 export default {
   name: "UserProfile",
   components: { TwootsVue, TwootsPanelVue },
   setup() {
+    const route = useRoute();
+
+    const userId = computed(() => route.params.userId);
+
     const state = reactive({
       followers: 0,
       following: 1,
       isLoading: false,
-      user: {
-        id: 1,
-        userName: "zalfaridzii",
-        firstName: "Zaki",
-        lastName: "Al Faridzi",
-        email: "zalf@gmail.com",
-        isAdmin: true,
-        twoots: [
-          { id: 1, content: "twooter🔥🔥" },
-          { id: 2, content: "#FFXVI" },
-          { id: 3, content: "#WOODWARDOUT" },
-          { id: 4, content: "#MUNTOT1-6" },
-        ],
-      },
+      user: users[userId.value - 1] || users[0],
     });
 
     function addTwoot(twoot) {
@@ -71,6 +64,7 @@ export default {
     return {
       state,
       addTwoot,
+      userId,
     };
   },
 
