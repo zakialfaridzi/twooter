@@ -5,7 +5,7 @@ Still beginner to Vue so i suppose this is a progress.
 Cheers!👋
 ```
 
-![User's Tweet](https://ibb.co/C7sCr3P)
+![Users Tweet](https://i.ibb.co/fpG6czD/Screenshot-359.png)
 
 ## Project setup
 ```
