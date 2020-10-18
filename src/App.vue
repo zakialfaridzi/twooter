@@ -7,6 +7,7 @@
       <div class="navigation__user" v-if="user">@{{ user.username }}</div>
     </nav>
     <router-view />
+    <section class="curved"></section>
   </div>
 </template>
 
@@ -35,6 +36,11 @@ export default {
   color: whitesmoke;
   min-height: 100vh;
   background-color: #16202a;
+  position: relative;
+  background: #2c3e50;
+  height: 50vh;
+  margin: auto;
+  padding: auto;
 
   nav {
     display: flex;
@@ -54,6 +60,18 @@ export default {
     .navigation__user {
       font-weight: bold;
     }
+  }
+
+  #app::after {
+    content: "";
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #f5f5f5;
+    height: 32%;
   }
 }
 </style>
