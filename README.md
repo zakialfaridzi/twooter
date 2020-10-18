@@ -1,7 +1,11 @@
 # Twootter
 ```
-My amateur vesion of Twitter build using Vue3
+My amateur vesion of Twitter build using Vue3, VueX, and Vue-Router
+Still beginner to Vue so i suppose this is a progress.
+Cheers!👋
 ```
+
+![User's Tweet](https://i.ibb.co/RNWY2xT/Screenshot-360.png)
 
 ## Project setup
 ```
